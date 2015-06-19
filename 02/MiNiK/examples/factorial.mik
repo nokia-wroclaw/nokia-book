@@ -1,0 +1,12 @@
+function factorial(val) {
+        if (val == 0) {
+                return 1
+        }
+        var newVal := val - 1
+        return val * factorial(newVal)
+}
+
+function main() {
+        var val := read()
+        return factorial(val)
+}

@@ -1,0 +1,13 @@
+function reduce(a) {
+        return a + 1
+}
+
+function main() {
+        var a := read()
+        while (a == 1) {
+                a :=
+                           reduce(a)
+        }
+        write(a)
+        return a
+}

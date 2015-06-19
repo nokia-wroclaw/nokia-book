@@ -1,0 +1,166 @@
+%{
+    #include <cstdio>
+    #include <string>
+    #include "nodes.hpp"
+    Ast::Functions program;
+    extern int yylex();
+    void yyerror(const char *s) { fprintf(stderr, "ERROR: %s\n", s); }
+%}
+
+/* Represents the many different ways we can access nodes of syntax tree */
+%union {
+    Ast::Node *node;
+    Ast::Identifier *identifier;
+    Ast::Integer *integer;
+    Ast::Function *function;
+    Ast::Statement *statement;
+    Ast::VariableDecl *variableDecl;
+    Ast::FunctionCall *functionCall;
+    Ast::ExpressionBase *exprBase;
+    Ast::Assignment *assignment;
+    Ast::IfStatement *ifStatement;
+    Ast::WhileStatement *whileStatement;
+    Ast::ReturnStatement *returnStatement;
+    Ast::Functions *functions;
+    Ast::Statements *statements;
+    Ast::Arguments *arguments;
+    int token;
+    std::string *str;
+}
+
+/* Define terminal symbols (tokens). This should
+   match  *.l lex file. Define the node type they represent.
+ */
+%token <str> TIDENTIFIER TINTEGER
+%token <token> TCEQ TCNE TCLT TCLE TCGT TCGE TEQUAL
+%token <token> TLPAREN TRPAREN TLBRACE TRBRACE TCOMMA
+%token <token> TPLUS TMINUS TMUL TDIV
+%token <token> TFUNCTION TRETURN TIF TWHILE TVAR
+
+/* Define the type of node nonterminal symbols represent.
+   The types refer to the %union declaration above. Ex: when
+   we call an ident (defined by union type ident) we are really
+   calling an (NIdentifier*). It makes the compiler happy.
+ */
+%type <identifier> Identifier
+%type <function> Function
+%type <statement> Statement
+%type <variableDecl> VariableDecl
+%type <functionCall> FunctionCall
+%type <exprBase> ExpressionMult ExpressionAdd Expression ExpressionAtom
+%type <assignment> AssignStatement
+%type <ifStatement> IfStatement
+%type <whileStatement> WhileStatement
+%type <returnStatement> ReturnStatement
+%type <functions> Program Functions
+%type <statements> Statements Block
+%type <arguments> Arguments
+%type <integer> Numeric
+%type <token> AddOp MultOp CompOp
+
+
+%start Program
+
+%%
+
+Program
+    : Functions { program = *$1; delete $1; }
+    ;
+
+Functions
+    : Function { $$ = new Ast::Functions{$1}; }
+    | Functions Function { $1->push_back($2); }
+    ;
+
+Function
+    : TFUNCTION Identifier TLPAREN Arguments TRPAREN Block
+        { $$ = new Ast::Function{$2->val, *$4, *$6}; delete $2; delete $4; delete $6; }
+    ;
+
+Block
+    : TLBRACE Statements TRBRACE { $$ = $2; }
+    | TLBRACE TRBRACE { $$ = new Ast::Statements{}; }
+    ;
+
+Identifier
+    : TIDENTIFIER { $$ = new Ast::Identifier{*$1}; delete $1; }
+    ;
+
+Arguments
+    : /*empty*/  { $$ = new Ast::Arguments{}; }
+    | Identifier { $$ = new Ast::Arguments{$1->val}; delete $1; }
+    | Arguments TCOMMA Identifier { $1->push_back($3->val); delete $3; }
+    ;
+
+Statements
+    : Statement { $$ = new Ast::Statements{$1}; }
+    | Statements Statement { $1->push_back($2); }
+    ;
+
+Statement
+    : VariableDecl { $$ = $1; }
+    | IfStatement { $$ = $1; }
+    | WhileStatement { $$ = $1; }
+    | ReturnStatement { $$ = $1; }
+    | AssignStatement { $$ = $1; }
+    | FunctionCall { $$ = $1; }
+    ;
+
+VariableDecl
+    : TVAR Identifier TEQUAL Expression { $$ = new Ast::VariableDecl{$2->val, $4}; delete $2; }
+    ;
+
+Numeric
+    : TINTEGER { $$ = new Ast::Integer{std::stoi(*$1)}; delete $1; }
+    | TMINUS TINTEGER { $$ = new Ast::Integer{-std::stoi(*$2)}; delete $2; }
+    ;
+
+FunctionCall
+    : Identifier TLPAREN Arguments TRPAREN
+        { $$ = new Ast::FunctionCall{$1->val, *$3}; delete $1; delete $3; }
+    ;
+
+ExpressionAtom
+    : Numeric { $$ = new Ast::ExpressionAtom{$1}; }
+    | Identifier { $$ = new Ast::ExpressionAtom{$1}; }
+    | TMINUS Identifier { $$ = new Ast::ExpressionAtom{$2, true}; }
+    | TLPAREN Expression TRPAREN { $$ = new Ast::ExpressionAtom{$2}; }
+    | FunctionCall { $$ = new Ast::ExpressionAtom{$1}; }
+    ;
+
+ExpressionMult
+    : ExpressionAtom { $$ = $1; }
+    | ExpressionAtom MultOp ExpressionMult { $$ = new Ast::ExpressionBinary{$1, $2, $3}; }
+    ;
+
+ExpressionAdd
+    : ExpressionMult { $$ = $1; }
+    | ExpressionMult AddOp ExpressionAdd { $$ = new Ast::ExpressionBinary{$1, $2, $3}; }
+    ;
+
+Expression
+    : ExpressionAdd { $$ = $1; }
+    | ExpressionAdd CompOp ExpressionAdd { $$ = new Ast::ExpressionBinary{$1, $2, $3}; }
+    ;
+
+AssignStatement
+    : Identifier TEQUAL Expression { $$ = new Ast::Assignment{$1->val, $3}; delete $1; }
+    ;
+
+IfStatement
+    : TIF TLPAREN Expression TRPAREN Block { $$ = new Ast::IfStatement{$3, *$5}; delete $5; }
+    ;
+
+WhileStatement
+    : TWHILE TLPAREN Expression TRPAREN Block { $$ = new Ast::WhileStatement{$3, *$5}; delete $5; }
+    ;
+
+ReturnStatement
+    : TRETURN Expression { $$ = new Ast::ReturnStatement{$2}; }
+    ;
+
+AddOp : TPLUS | TMINUS;
+MultOp : TMUL | TDIV;
+CompOp : TCEQ | TCNE | TCLT | TCLE | TCGT | TCGE;
+
+%%

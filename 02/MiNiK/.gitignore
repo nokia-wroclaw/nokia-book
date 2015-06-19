@@ -1,0 +1,4 @@
+.*.swp
+.*.swo
+minik_lexer.c
+minik_parser.*pp
