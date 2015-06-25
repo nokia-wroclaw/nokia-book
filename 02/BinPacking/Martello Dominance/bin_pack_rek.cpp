@@ -1,0 +1,230 @@
+#include <cstdio>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <queue>
+#include "L2.hpp"
+#include <ctime>
+using namespace std;
+#define DBG(X)
+
+vector<int> items;
+vector<int> residual;
+vector<vector<int>> has;
+vector<int> binClosed;
+vector<int> lastElementInClosed;
+vector<int> visited;
+//dominance criterium
+
+const int INF = 1 << 30;
+int UpperBound = INF;
+
+int C;
+int nodes = 0;
+int bestSol = INF;
+int bestL2 = INF;
+time_t start;
+void printSolution()
+{
+  for (int i = 0; i < residual.size(); i++)
+  {
+    cout << "Bin " << i << " has items: ";
+    for (int j = 0; j < items.size(); j++)
+    {
+      if (has[i][j])
+      {
+        cout << items[j] << " ";
+      }
+    }
+    cout << endl;
+  }
+}
+
+int packItem(int index)
+{
+  if (clock() - start > 15000) return -1;
+  int r = INF;
+  
+  int s = 0;
+  int L2inNode = 0;
+  vector<int> elemsInNode;
+  for (int i = 0; i < items.size(); i++)
+  {
+    if (!visited[i])
+    {
+      elemsInNode.push_back(items[i]);
+    }
+  }
+  for (int i = 0; i < residual.size(); i++)
+  {
+    s += residual[i] < C;
+    if (residual[i] < C)
+      elemsInNode.push_back(C - residual[i]);
+  }
+  //printSolution();
+  if (index == items.size())
+  {
+    
+    bestSol = min(bestSol, s);
+    UpperBound = min(UpperBound, s);
+  }
+  if (UpperBound != INF && s > UpperBound - 1)
+  {
+    return s;
+  }    
+  
+  if (s)
+  {
+    L2inNode = L2(C, elemsInNode)();
+    DBG(cout << "L2inNode " << L2inNode << " bestSol " << bestSol << endl;)
+    if (bestSol != INF && L2inNode >= bestSol)
+    {
+      DBG(cout << "L2 cut" << endl;)
+      return bestSol;
+    }
+  }
+  if (s >= bestSol)
+  {
+    return bestSol;
+  }
+
+  DBG(cout << "bestSol " << bestSol << " bestL2 " << bestL2 << endl;)
+  if (bestSol == bestL2)
+  {
+    return bestSol;
+  }
+ 
+  for (int i = 0; i < residual.size(); i++)
+  {
+    if (!visited[index] && residual[i] >= items[index])
+    {
+      if (residual[i] == C)
+      {
+        if (s >= UpperBound - 1) continue;
+      }
+      
+      if (!binClosed[i])
+      {
+        DBG(cout << "bin not closed" << i << endl;)
+        DBG(cout << "packed item index " << index << endl;)
+        residual[i] -= items[index];
+        has[i][index] = true;
+        visited[index] = 1;
+        
+        //check dominance
+        if (index < items.size() - 1 && items[items.size() - 1] > residual[i])
+        {
+          binClosed[i] = true;
+          DBG(cout << "bin closed" << i << endl;)
+        }
+        
+        int last = -1;
+        for (int j = 0; j < items.size(); j++)
+        {
+          if (has[i][j])
+            last = max(last, j);
+        }
+        lastElementInClosed[i] = last;
+        
+        
+        nodes++;
+        r = min(packItem(index + 1), r);
+        has[i][index] = false;
+        residual[i] += items[index];
+        visited[index] = 0;
+        
+        if (residual[i] == C)
+        {
+          break;
+        }
+      }
+      else
+      {
+        
+        residual[i] -= items[index];
+        has[i][index] = true;
+        visited[index] = 1;
+        
+        DBG(cout << "index " << index << endl;)
+        if (index == items.size() - 1)
+        {
+          r = min(packItem(index + 1), r);
+          residual[i] += items[index];
+          has[i][index] = false;
+          visited[index] = 0;
+          return r;
+        }
+        
+        //check dominance
+        bool toClose = false;
+        DBG(cout << " bin " << i << " closed " << " index " << index << " last in closed " << lastElementInClosed[i] << endl;)
+      
+        if (lastElementInClosed[i] != -1 && index > lastElementInClosed[i] && items[items.size() - 1] > residual[i])
+        {
+          DBG(cout << "Dominated" << lastElementInClosed[i] << endl;)
+        }
+        else if (lastElementInClosed[i] != -1 && index > lastElementInClosed[i] && items[items.size() - 1] <= residual[i])
+        {
+          binClosed[i] = false; //re-open
+          DBG(cout << "reopened" << endl;)
+          r = min(packItem(index + 1), r);
+        } 
+        else if (lastElementInClosed[i] != -1 && index < lastElementInClosed[i]) //re-open too
+        {
+          DBG(cout << "reopened" << i << endl;)
+          binClosed[i] = false; //re-open
+          r = min(packItem(index + 1), r);
+        }
+        
+        has[i][index] = false;
+        residual[i] += items[index];
+        visited[index] = 0;
+        
+        if (residual[i] == C)
+        {
+          break;
+        }
+      }
+      
+    }
+  }
+  
+  return r;
+}
+
+int main()
+{
+  start = clock();
+  scanf("%d", &C);
+
+  int n;
+  scanf("%d", &n);
+  has.resize(n);
+  residual.resize(n, C);
+  binClosed.resize(n, 0);
+  lastElementInClosed.resize(n, 0);
+  visited.resize(n, 0);
+  
+  for (int i = 0; i < n; i++)
+  {
+    int w;
+    scanf("%d", &w);
+    items.push_back(w);
+    has[i].resize(n);
+  }
+  
+  sort(items.begin(), items.end());
+  reverse(items.begin(), items.end());
+  
+  bestL2 = L2(C, items)();
+  cout << "best L2 " << bestL2 << endl;
+
+  cout << "min bins = " << packItem(0) << endl;
+  cout << "nr of visited nodes = " << nodes;
+end:
+  cout << "time = " << clock() - start << endl;
+
+  return 0;
+}
+
+
