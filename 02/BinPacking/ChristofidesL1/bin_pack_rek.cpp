@@ -28,12 +28,12 @@ int packItem(int index)
   if (clock() - start > 15000) return -1;
   
   vector<pair<int,int>> res;
-  for (int i = 0; i < residual.size(); i++)
+  for (size_t i = 0; i < residual.size(); i++)
   {
     if (residual[i] < C) res.push_back({residual[i], i});
   }
   int b = 0;
-  for (int i = 0; i < residual.size(); i++)
+  for (size_t i = 0; i < residual.size(); i++)
   {
     if (residual[i] == C) 
     {
@@ -44,7 +44,7 @@ int packItem(int index)
   sort(res.begin(), res.end());
   res.push_back({C, b});
 
-  int jstar = 0;
+  size_t jstar = 0;
   for (; jstar < items.size(); jstar++)
   {
     if (itemscontain[jstar]) break;
@@ -54,7 +54,7 @@ int packItem(int index)
   int L1inNode = 0;
   vector<int> elemsInNode;
   
-  for (int i = 0; i < items.size(); i++)
+  for (size_t i = 0; i < items.size(); i++)
   {
     if (itemscontain[i])
     {
@@ -62,7 +62,7 @@ int packItem(int index)
     }
   }
   
-  for (int i = 0; i < residual.size(); i++)
+  for (size_t i = 0; i < residual.size(); i++)
   {
     s += residual[i] < C;
     if (residual[i] < C)
@@ -100,13 +100,13 @@ int packItem(int index)
     return bestSol;
   }
 
-  int h = 0;
+  size_t h = 0;
   for (; h < res.size(); h++)
   {
     if (items[jstar] <= res[h].first) break;
   }
   
-  for (int i = h; i < res.size(); i++)
+  for (size_t i = h; i < res.size(); i++)
   {
     if (!visited[jstar] && residual[res[i].second] >= items[jstar])
     {
