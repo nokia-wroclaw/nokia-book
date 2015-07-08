@@ -119,7 +119,7 @@ int packItem(int index)
       visited[jstar] = true;
       itemscontain[jstar] = false;
       nodes++;
-      int next = 0;
+      size_t next = 0;
       for (; next < res.size(); next++)
         if (!visited[next]) break;
       r = min(packItem(next), r);
