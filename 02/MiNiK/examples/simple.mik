@@ -1,0 +1,23 @@
+function f() {
+        var d := 10
+        while (d > 5) {
+                var c := (3 + 2) * d
+                d := d - 1
+        }
+        var x := 10 + - d * 3 / f() + g(d, d)
+        return x * f()
+}
+
+function h(a, b) {
+    return a + b
+}
+
+function g(a, b) {
+    return h(a, b)
+}
+
+function main() {
+        var a := 10
+        var b := 20
+        return g(a, b)
+}
