@@ -8,8 +8,8 @@ using namespace std;
 
 int main()
 {
-  int C;
-  scanf("%d", &C);
+  int capacity;
+  scanf("%d", &capacity);
   int n;
   scanf("%d", &n);
   
@@ -26,7 +26,7 @@ int main()
   {
     auto it = S.lower_bound(item);
     if (it == S.end())
-      it = S.insert(C);
+      it = S.insert(capacity);
     int el = *it;
     el -= item;
     S.erase(it);
