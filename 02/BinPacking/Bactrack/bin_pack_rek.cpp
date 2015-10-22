@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <ctime>
 
+
 using namespace std;
 
 vector<int> visited;
