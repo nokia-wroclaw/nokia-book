@@ -4,12 +4,12 @@ using namespace std;
 class L2
 {
   vector<int> items;
-  int C;
+  int capacity;
   int r1 = -1;
   int r2 = -1;
   int r3 = 1000000;
 public:
-  L2(int C, vector<int> items) ;
+  L2(int capacity, vector<int> items) ;
   int operator()();
   int calcL2(int alfa);
   int calcNext(int alfa);

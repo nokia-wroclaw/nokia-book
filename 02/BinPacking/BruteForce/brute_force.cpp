@@ -14,8 +14,8 @@ int main()
 {
   vector<int> items;
   time_t start = clock();
-  int C;
-  scanf("%d", &C);
+  int capacity;
+  scanf("%d", &capacity);
   int n;
   scanf("%d", &n);
   
@@ -32,14 +32,14 @@ int main()
   int cnt = 0;
   do
   {
-    int s = C;
+    int s = capacity;
     int r = 1;
     for (int i = 0; i < items.size(); i++)
     {
       s -= items[i];
       if (s < 0)
       {
-        s = C - items[i];
+        s = capacity - items[i];
         r++;
       }
     }

@@ -3,10 +3,10 @@
 #include <iostream>
 #include "L2.hpp"
 #define DBG(X)
-  L2::L2(int C, vector<int> items) 
+  L2::L2(int capacity, vector<int> items) 
   {
     this->items = items;
-    this->C = C;
+    this->capacity = capacity;
   }
   int L2::operator()()
   {
@@ -27,13 +27,13 @@
     find();
     if (jstar == -1) return items.size();
     it = uni.begin();
-    while (*it > C / 2)
+    while (*it > capacity / 2)
     {
       ++it;
     }
     
     uni.erase(uni.begin(), it);
-    DBG(cout << " C " << C << " *uni.begin() = alfa " << *uni.begin() << " items[1] " << items[1] << "jstar " << jstar << " sJ1 " << sJ1 << " sJ2 " << sJ2 << " sJ3 " << sJ3 << endl;)
+    DBG(cout << " capacity " << capacity << " *uni.begin() = alfa " << *uni.begin() << " items[1] " << items[1] << "jstar " << jstar << " sJ1 " << sJ1 << " sJ2 " << sJ2 << " sJ3 " << sJ3 << endl;)
     int r = calcL2(*uni.begin());
     DBG(cout << "after calcL2 r " << r << " *uni.begin() = alfa " << *uni.begin() << " items[1] " << items[1] << "jstar " << jstar << " sJ1 " << sJ1 << " sJ2 " << sJ2 << " sJ3 " << sJ3 << endl;)
     
@@ -52,7 +52,7 @@
     for (int i = 0; i < items.size(); i++)
     {
       
-      if (items[i] > C - alfa)
+      if (items[i] > capacity - alfa)
       {
         J1size++;
         r1 = i;
@@ -60,7 +60,7 @@
         sJ1 += items[i];
       }
       else
-      if (C - alfa >= items[i] && items[i] > C / 2)
+      if (capacity - alfa >= items[i] && items[i] > capacity / 2)
       {
         if (!phase2nd)
         {
@@ -71,13 +71,13 @@
         sJ2 += items[i];
       }
       else
-      if (C / 2 >= items[i] && items[i] >= alfa)
+      if (capacity / 2 >= items[i] && items[i] >= alfa)
       {
         J3size++;
         r3 = i + 1;
         sJ3 += items[i];
       }
-      DBG(cout << " i " << i << "items[i] " << items[i]<< " sJ1 " << sJ1 << " C " << C << " alfa " << alfa << endl;
+      DBG(cout << " i " << i << "items[i] " << items[i]<< " sJ1 " << sJ1 << " capacity " << capacity << " alfa " << alfa << endl;
       cout << "J1size " << J1size << endl;
       cout << "J2size " << J2size << endl;
       cout << "J3size " << J3size << endl;
@@ -87,9 +87,9 @@
       
     }
     
-    int l = (sJ3 - J2size * C + sJ2);
+    int l = (sJ3 - J2size * capacity + sJ2);
     DBG(cout << "L " << l << endl;)
-    int ceilL = (l + C - 1) / C;
+    int ceilL = (l + capacity - 1) / capacity;
     DBG(cout << "ceilL " << ceilL << endl;)
     
     return J1size + J2size + max(0, ceilL);
@@ -99,13 +99,13 @@
     DBG(cout << "r1 " << r1 << " r2 " << r2 << " r3 " << r3 << endl;)
     if (jstar > 0)
     {
-      while (r1 >=0 && items[r1] <= C - alfa)
+      while (r1 >=0 && items[r1] <= capacity - alfa)
       {
         J1size--;
         sJ1 -= items[r1];
         r1--;
       }
-      while (r2 >=0 && items[r2] <= C - alfa)
+      while (r2 >=0 && items[r2] <= capacity - alfa)
       {
         J2size++;
         sJ2 += items[r2];
@@ -120,9 +120,9 @@
     }
     //if (r1 < 0 && r2 < 0 || r3 > items.size()) return -1;
 
-    int l = (sJ3 - J2size * C + sJ2);
+    int l = (sJ3 - J2size * capacity + sJ2);
     DBG(cout << "L " << l << endl;)
-    int ceilL = (l + C - 1) / C;
+    int ceilL = (l + capacity - 1) / capacity;
     
     return J1size + J2size + max(0, ceilL);
   }
@@ -131,7 +131,7 @@
   {
     for (int j = 0; j < items.size(); j++)
     {
-      if (items[j] <= C / 2)
+      if (items[j] <= capacity / 2)
       {
         jstar = j;
         break;

@@ -14,7 +14,7 @@ vector<int> items;
 vector<int> visited;
 vector<int> residual;
 vector<int> itemscontain;
-int C ;
+int capacity ;
 
 int nodes = 0;
 int bestSol = INF;
@@ -30,19 +30,19 @@ int packItem(int index)
   vector<pair<int,int>> res;
   for (size_t i = 0; i < residual.size(); i++)
   {
-    if (residual[i] < C) res.push_back({residual[i], i});
+    if (residual[i] < capacity) res.push_back({residual[i], i});
   }
   int b = 0;
   for (size_t i = 0; i < residual.size(); i++)
   {
-    if (residual[i] == C) 
+    if (residual[i] == capacity) 
     {
       b = i; 
       break;
     }
   }
   sort(res.begin(), res.end());
-  res.push_back({C, b});
+  res.push_back({capacity, b});
 
   size_t jstar = 0;
   for (; jstar < items.size(); jstar++)
@@ -64,9 +64,9 @@ int packItem(int index)
   
   for (size_t i = 0; i < residual.size(); i++)
   {
-    s += residual[i] < C;
-    if (residual[i] < C)
-      elemsInNode.push_back(C - residual[i]);
+    s += residual[i] < capacity;
+    if (residual[i] < capacity)
+      elemsInNode.push_back(capacity - residual[i]);
   }
   
   if (jstar == items.size())
@@ -82,7 +82,7 @@ int packItem(int index)
   }  
   if (s)
   {
-    L1inNode = L1(C, elemsInNode)();
+    L1inNode = L1(capacity, elemsInNode)();
     if (bestSol != INF && L1inNode >= bestSol)
     {
       cout << "fathom L1" << endl;
@@ -110,7 +110,7 @@ int packItem(int index)
   {
     if (!visited[jstar] && residual[res[i].second] >= items[jstar])
     {
-      if (residual[res[i].second] == C)
+      if (residual[res[i].second] == capacity)
       {
         if (s >= UpperBound - 1) continue;
       }
@@ -135,11 +135,11 @@ int packItem(int index)
 int main()
 {
   start = clock();
-  scanf("%d", &C);
+  scanf("%d", &capacity);
   int n;
   scanf("%d", &n);
   visited.resize(n, 0);
-  residual.resize(n, C);
+  residual.resize(n, capacity);
   itemscontain.resize(n, 1);
   
   for (int i = 0; i < n; i++)
@@ -152,7 +152,7 @@ int main()
   reverse(items.begin(), items.end());
     
   
-  bestL1 = L1(C, items)();
+  bestL1 = L1(capacity, items)();
   
   
   cout << "min bins = " << packItem(0) << endl;

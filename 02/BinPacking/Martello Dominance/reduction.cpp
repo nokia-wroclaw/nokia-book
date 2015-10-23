@@ -8,15 +8,15 @@ using namespace std;
 class MaxPair
 {
   vector<int> items;
-  int C;
+  int capacity;
   int r1 = -1;
   int r2 = -1;
   int r3 = 1000000;
 public:
-  MaxPair(int C, vector<int> items) 
+  MaxPair(int capacity, vector<int> items) 
   {
     this->items = items;
-    this->C = C;
+    this->capacity = capacity;
   }
   int operator()()
   {
@@ -36,7 +36,7 @@ public:
     
     while (l < r)
     {
-      if (items[l] + items[r] <= C)
+      if (items[l] + items[r] <= capacity)
       {
         maxS = max(maxS, items[l] + items[r]);
         P = {l, r};
@@ -48,7 +48,7 @@ public:
       }
     }
     
-    if (r + 1 < items.size() && items[l] + items[r + 1] <= C)
+    if (r + 1 < items.size() && items[l] + items[r + 1] <= capacity)
     {
       P = {l, r + 1};
     }

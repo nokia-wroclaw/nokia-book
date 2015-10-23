@@ -4,9 +4,9 @@ using namespace std;
 class L1
 {
   vector<int> items;
-  int C;
+  int capacity;
 public:
-  L1(int C, vector<int> items);
+  L1(int capacity, vector<int> items);
   int operator()();
 };
 

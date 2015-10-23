@@ -12,7 +12,7 @@ vector<int> items;
 
 vector<int> residual;
 
-int C;
+int capacity;
 time_t start;
 const int INF = 1 << 30;
 
@@ -41,7 +41,7 @@ int packItem(int index)
   int s = 0;
   for (int i = 0; i < residual.size(); i++)
   {
-    s += residual[i] < C;
+    s += residual[i] < capacity;
   }
   if (index == items.size())
   {
@@ -59,7 +59,7 @@ int packItem(int index)
   {
     if (!visited[index] && items[index] <= residual[i])
     {
-      if (residual[i] == C)
+      if (residual[i] == capacity)
       {
         if (s >= UpperBound - 1) continue;
       }
@@ -67,7 +67,7 @@ int packItem(int index)
       nodes++;
       r = min(packItem(index + 1), r);
       restore_and_unvisit(i, index);
-      if (residual[i] == C)
+      if (residual[i] == capacity)
         stop = true;
     }
     
@@ -79,11 +79,11 @@ int packItem(int index)
 int main()
 {
   start = clock();
-  scanf("%d", &C);
+  scanf("%d", &capacity);
   int n;
   scanf("%d", &n);
   visited.resize(n, 0);
-  residual.resize(n, C);
+  residual.resize(n, capacity);
   int s = 0;
   for (int i = 0; i < n; i++)
   {

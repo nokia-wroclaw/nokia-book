@@ -12,11 +12,11 @@ int main()
   
   vector<int> residual;
   
-  int C;
-  scanf("%d", &C);
+  int capacity;
+  scanf("%d", &capacity);
   int n;
   scanf("%d", &n);
-  residual.resize(n, C);
+  residual.resize(n, capacity);
   for (int i = 0; i < n; i++)
   {
     int w;

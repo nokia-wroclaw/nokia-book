@@ -12,7 +12,7 @@ class WinnerTree
   int r;
   vector<int> tree;
 public:
-  WinnerTree(int n, int C)
+  WinnerTree(int n, int capacity)
   {
     r = 0;
     int i = 1;
@@ -23,7 +23,7 @@ public:
       pow++;
     }
     nodes = 2 * i - 1;
-    tree.resize(nodes + 1, C);
+    tree.resize(nodes + 1, capacity);
     
     p = i;
   }
@@ -62,8 +62,8 @@ public:
 int main()
 {
   vector<int> items;
-  int C;
-  scanf("%d", &C);
+  int capacity;
+  scanf("%d", &capacity);
   int n;
   scanf("%d", &n);
   for (int i = 0; i < n; i++)
@@ -73,7 +73,7 @@ int main()
     items.push_back(w);
   }
   
-  WinnerTree tree(n, C);
+  WinnerTree tree(n, capacity);
   tree.minBins();
 
   for (int i = 0; i < n; i++)

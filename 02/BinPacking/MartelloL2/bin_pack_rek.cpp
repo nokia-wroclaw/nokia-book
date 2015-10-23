@@ -15,7 +15,7 @@ vector<int> visited;
 const int INF = 1 << 30;
 int UpperBound = INF;
 
-int C;
+int capacity;
 int nodes = 0;
 int bestSol = INF;
 int bestL2 = INF;
@@ -54,9 +54,9 @@ int packItem(int index)
   }
   for (int i = 0; i < residual.size(); i++)
   {
-    s += residual[i] < C;
-    if (residual[i] < C)
-      elemsInNode.push_back(C - residual[i]);
+    s += residual[i] < capacity;
+    if (residual[i] < capacity)
+      elemsInNode.push_back(capacity - residual[i]);
   }
   //printSolution();
   if (index == items.size())
@@ -71,7 +71,7 @@ int packItem(int index)
   }    
   if (s)
   {
-    L2inNode = L2(C, elemsInNode)();
+    L2inNode = L2(capacity, elemsInNode)();
     DBG(cout << "L2inNode " << L2inNode << " bestSol " << bestSol << endl;)
     if (bestSol != INF && L2inNode >= bestSol)
     {
@@ -94,7 +94,7 @@ int packItem(int index)
   {
     if (!visited[index] && residual[i] >= items[index])
     {
-      if (residual[i] == C)
+      if (residual[i] == capacity)
       {
         if (s >= UpperBound - 1) continue;
       }
@@ -111,7 +111,7 @@ int packItem(int index)
       residual[i] += items[index];
       visited[index] = 0;
       
-      if (residual[i] == C)
+      if (residual[i] == capacity)
       {
         break;
       }
@@ -124,12 +124,12 @@ int packItem(int index)
 int main()
 {
   start = clock();
-  scanf("%d", &C);
+  scanf("%d", &capacity);
 
   int n;
   scanf("%d", &n);
   has.resize(n);
-  residual.resize(n, C);
+  residual.resize(n, capacity);
   visited.resize(n, 0);
   
   for (int i = 0; i < n; i++)
@@ -143,7 +143,7 @@ int main()
   sort(items.begin(), items.end());
   reverse(items.begin(), items.end());
   
-  bestL2 = L2(C, items)();
+  bestL2 = L2(capacity, items)();
   cout << "best L2 " << bestL2 << endl;
 
   cout << "min bins = " << packItem(0) << endl;
