@@ -8,8 +8,8 @@ int main()
 {
   vector<int> items;
 
-  int C;
-  scanf("%d", &C);
+  int capacity;
+  scanf("%d", &capacity);
   int n;
   scanf("%d", &n);
 
@@ -21,13 +21,13 @@ int main()
   }
   
   int nextbin = 0;
-  int residual = C;
+  int residual = capacity;
   for (int i = 0; i < n; i++)
   {
     residual -= items[i];
     if (residual < 0)
     {
-      residual = C - items[i];
+      residual = capacity - items[i];
       nextbin++;
     }
   }

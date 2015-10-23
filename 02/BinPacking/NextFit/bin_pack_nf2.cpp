@@ -5,12 +5,12 @@ using namespace std;
 
 int main()
 {
-  int C;
-  scanf("%d", &C);
+  int capacity;
+  scanf("%d", &capacity);
   int n;
   scanf("%d", &n);
   
-  int residual = C;
+  int residual = capacity;
   int nextbin = 0;
   for (int i = 0; i < n; i++)
   {
@@ -19,7 +19,7 @@ int main()
     residual -= w;
     if (residual < 0)
     {
-      residual = C - w;
+      residual = capacity - w;
       nextbin++;
     }
   }
