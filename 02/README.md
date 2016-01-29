@@ -18,5 +18,4 @@ I wish you a pleasant read,
 
 **Bartosz Ciepluch**  
 Head of [Nokia Networks European Software and Engineering Center in Wrocław](http://nokiawroclaw.pl/)
-
 ![Titlepage](img/nb2b.png)
