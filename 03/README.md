@@ -1,4 +1,4 @@
-[NOKIA Book 3rd edition](https://github.com/nokia-wroclaw/nokia-book/raw/pdf/03/NOKIA_Book_3rd_Edition.pdf)
+[NOKIA Book 3rd edition](https://github.com/nokia-wroclaw/nokia-book/raw/master/03/NOKIA_Book_3rd_Edition.pdf)
 ========================
 
 Dear Readers,
@@ -9,7 +9,7 @@ Engineering Center in Wroclaw. Traditionally, our specialists have
 given their contribution. They have written about the real-life case
 studies which are described in the following pages.
 
-*“[The Future of Telecommunication is Happening Now. Check How the Experts Do It](https://github.com/nokia-wroclaw/nokia-book/raw/pdf/03/NOKIA_Book_3rd_Edition.pdf)”*
+*“[The Future of Telecommunication is Happening Now. Check How the Experts Do It](https://github.com/nokia-wroclaw/nokia-book/raw/master/03/NOKIA_Book_3rd_Edition.pdf)”*
 shows practical dimension of advanced telecommunication technologies and System Engineering
 threads. Our writers, being at the same time developers, testers, researchers, and engineers
 in general, did not overlook the topic of professional software development.

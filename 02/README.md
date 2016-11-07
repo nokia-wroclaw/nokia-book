@@ -1,11 +1,11 @@
-[NOKIA Book 2nd edition](https://github.com/nokia-wroclaw/nokia-book/raw/pdf/02/NOKIA_Book_2nd.pdf)
+[NOKIA Book 2nd edition](https://github.com/nokia-wroclaw/nokia-book/raw/master/02/NOKIA_Book_2nd.pdf)
 ========================
 
 Dear Readers,
 
 I am thrilled to present to you another joint effort of employees of Nokia Networks European
 Software and Engineering Center in Wrocław: *“[Shaping the Future of Telecommunication.
-Check How the Experts Do It.](https://github.com/nokia-wroclaw/nokia-book/raw/pdf/02/NOKIA_Book_2nd.pdf)”*
+Check How the Experts Do It.](https://github.com/nokia-wroclaw/nokia-book/raw/master/02/NOKIA_Book_2nd.pdf)”*
 
 This collection of 23 interesting writings extensively covers four aspects of the programmer's
 work, including Advanced Technologies, System Engineering, System Development,

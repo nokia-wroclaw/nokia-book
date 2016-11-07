@@ -1,9 +1,9 @@
-[NOKIA Book 1st edition](https://github.com/nokia-wroclaw/nokia-book/raw/pdf/01/NOKIA_Book_1st.pdf)
+[NOKIA Book 1st edition](https://github.com/nokia-wroclaw/nokia-book/raw/master/01/NOKIA_Book_1st.pdf)
 ========================
 
 Z wielką przyjemnością przedstawiam Wam książkę *„[Praktyczny wstęp do wytwarzania
 systemów oprogramowania, które zmieniają bieg historii. Sprawdź, jak robią
-to specjaliści.](https://github.com/nokia-wroclaw/nokia-book/raw/pdf/01/NOKIA_Book_1st.pdf)”* poświęconą tematyce najnowocześniejszych technologii
+to specjaliści.](https://github.com/nokia-wroclaw/nokia-book/raw/master/01/NOKIA_Book_1st.pdf)”* poświęconą tematyce najnowocześniejszych technologii
 telekomunikacyjnych.
 
 Jest to książka o tyle dla nas ważna, iż jej autorami są nasi pracownicy – specjaliści z Europejskiego
