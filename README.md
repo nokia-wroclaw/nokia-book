@@ -6,4 +6,8 @@ NOKIA Book
 
  * [NOKIA Book 2nd edition](02/)  
    "Shaping the Future of Telecommunication. Check How the Experts Do It." (ENG)
-![Titlepage](02/img/nb2a.png)
+
+ * [NOKIA Book 3rd edition](03/)  
+   "The Future of Telecommunication is Happening Now. Check How the Experts Do It." (ENG)
+
+![Titlepage](03/img/nb3_3.png)
