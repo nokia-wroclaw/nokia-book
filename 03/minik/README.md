@@ -25,5 +25,5 @@ $ gcc -m32 src/runtime/minikrt0.o prog.s -o prog
 
 Authors
 =======
-[Paweł Wieczorek](pawel.wieczorek@nokia.com)  
-[Michał Bartkowiak](michal.bartkowiak@nokia.com)
+**Paweł Wieczorek** (```pawel.wieczorek@nokia.com```)  
+**Michał Bartkowiak** (```michal.bartkowiak@nokia.com```)
