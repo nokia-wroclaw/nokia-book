@@ -1,0 +1,19 @@
+function sum(x)
+{
+    var i := x
+    var aux := 0
+
+    while (i > 0) {
+        aux := aux + i
+        i := i - 1
+    }
+
+    return aux
+}
+
+function main()
+{
+    var x := read()
+    var aux := sum(x)
+    return aux
+}

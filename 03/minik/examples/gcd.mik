@@ -1,0 +1,21 @@
+function gcd(a, b) {
+        while (a != b) {
+                var tmp_a := a
+                var tmp_b := b
+                if (a > b) {
+                        tmp_a := a - b
+                }
+                if (a <= b) {
+                        tmp_b := b - a
+                }
+                a := tmp_a
+                b := tmp_b
+        }
+        return a
+}
+
+function main() {
+        var a := read()
+        var b := read()
+        return gcd(a, b)
+}

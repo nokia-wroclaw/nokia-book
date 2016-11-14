@@ -1,0 +1,17 @@
+function mod(a, b) {
+        return a - b * (a / b)
+}
+
+function gcd(a, b) {
+        if (b == 0) {
+                return a
+        }
+        var a_mod_b := mod(a, b)
+        return gcd(b, a_mod_b)
+}
+
+function main() {
+        var a := read()
+        var b := read()
+        return gcd(a, b)
+}

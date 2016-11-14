@@ -1,0 +1,9 @@
+*.o
+*.o.dep
+*.pyc
+.*.swp
+.*.swo
+*.s
+*.log
+minik_lexer.c
+minik_parser.*pp
