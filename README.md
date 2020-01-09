@@ -1,6 +1,9 @@
 NOKIA Book
 ==========
 
+ * [NOKIA Book 5th edition](05/)  
+   "Machine Learning in Telecommunication Networks is Happening Now. Check How the Experts Do It."
+
  * [NOKIA Book 4th edition](04/)  
    "Bringing the Telecommunication Solution to the Next Level. Check How the Experts Do It."
 
@@ -14,4 +17,4 @@ NOKIA Book
    "Praktyczny wstęp do wytwarzania systemów oprogramowania, które zmieniają bieg historii. Sprawdź, jak robią to specjaliści." (PL)
 
 
-![Titlepage](04/img/nb4.png)
+![Titlepage](05/img/nb5.png)
